@@ -1,0 +1,3 @@
+[submodule "pymelcloud"]
+	path = pymelcloud
+	url = https://github.com/vilppuvuorinen/pymelcloud.git
