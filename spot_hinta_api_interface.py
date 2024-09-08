@@ -2,7 +2,7 @@ import requests
 import melcloud_interface
 
 
-def fetch_control()
+def fetch_control():
     # Select Quick Code according to Spot-hinta API documentation at
     # https://spot-hinta.fi/pikakoodit/
     quick_code = 125
