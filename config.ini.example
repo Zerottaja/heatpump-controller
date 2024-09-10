@@ -1,0 +1,14 @@
+# After modifying this file with your own credentials,
+# save this file as config.ini
+
+[DEFAULT]
+# By default, how many hours a day should heating be active?
+HeatingHours=12
+# Should these heating hours be consecutive?
+ConsecutiveHours=False
+
+[Credentials]
+# Mitsubishi Cloud credentials
+MELCloudEmail = user.name@email.com
+MELCloudPassword = user_password
+

@@ -1,13 +1,16 @@
 import aiohttp
 import asyncio
 import pymelcloud
-import secrets
+import configparser
+
+conf = configparser.ConfigParser()
+conf.read('config.ini')
 
 async def __update_melcloud(state_request):
 
     async with aiohttp.ClientSession() as session:
         # call the login method with the session
-        token = await pymelcloud.login(secrets.user_email, secrets.user_password, session=session)
+        token = await pymelcloud.login(conf['Credentials']['melcloudemail'], conf['Credentials']['melcloudpassword'], session=session)
 
         # lookup the device
         devices = await pymelcloud.get_devices(token, session=session)
