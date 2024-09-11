@@ -6,6 +6,8 @@
 HeatingHours=12
 # Should these heating hours be consecutive?
 ConsecutiveHours=False
+# Nordpool price area
+PriceArea=fi
 
 [Credentials]
 # Mitsubishi Cloud credentials
