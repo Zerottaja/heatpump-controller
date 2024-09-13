@@ -2,12 +2,30 @@
 # save this file as config.ini
 
 [DEFAULT]
+# Heating control source options are spot-hinta and internal
+ControlSource=internal
 # By default, how many hours a day should heating be active?
 HeatingHours=12
 # Should these heating hours be consecutive?
 ConsecutiveHours=False
 # Nordpool price area
 PriceArea=fi
+
+['Heatpump']
+# Target temperature in degrees celsius
+TargetTemperature = 23
+# Operation mode options are heat, dry, cool, fan_only and heat_cool
+OperationMode = heat
+# Fan speed options are auto, 1, 2, 3, 4 and 5, excluding parenthesis 
+FanSpeed = 4
+# Horizontal Vane options are:
+# auto, 1_left, 2, 3, 4, 5_right, split and swing
+# please refer to pymelcloud library for position info
+VaneHorizontal = swing
+# Horizontal Vane options are:
+# auto, 1_up, 2, 3, 4, 5_down and swing
+# please refer to pymelcloud library for position info
+VaneVertical = swing
 
 [Credentials]
 # Mitsubishi Cloud credentials
