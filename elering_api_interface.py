@@ -29,7 +29,7 @@ def fetch_nps_price_data(fetch_today_also=False):
         # Check if the request was successful
         if response.status_code == 200:
             raw_data = json.loads(response.content)
-            data_list = raw_data['data'][conf['DEFAULT']['pricearea']]
+            data_list = raw_data['data'][conf['NordPool']['pricearea']]
             clean_data = {'data': data_list}
             # Define the local file name to save the JSON data
             filename = './nps-data/nps_price_data_'+request_date_str+'.json'

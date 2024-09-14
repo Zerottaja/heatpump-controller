@@ -9,7 +9,7 @@ conf.read('config.ini')
 
 def __sort_and_short(dict_list):
     dict_list.sort(key = lambda k: k['price'])
-    dict_list = dict_list[0:int(conf['DEFAULT']['heatinghours'])]
+    dict_list = dict_list[0:int(conf['Heating']['heatinghours'])]
     return dict_list
 
 

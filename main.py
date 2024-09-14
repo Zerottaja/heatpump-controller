@@ -9,7 +9,7 @@ conf.read('config.ini')
 
 
 def main():
-    match conf['DEFAULT']['controlsource']:
+    match conf['Heating']['controlsource']:
         case 'spot-hinta':
             heatpump_request = spot_hinta_api_interface.fetch_control()
         case 'internal':
