@@ -1,11 +1,13 @@
+from os import path
 import sys
 import configparser
 import spot_hinta_api_interface
 import melcloud_interface
 import heating_controller
 
+dir_path = path.dirname(path.abspath(__file__))
 conf = configparser.ConfigParser()
-conf.read('config.ini')
+conf.read(path.join(dir_path, 'config.ini'))
 
 
 def main():

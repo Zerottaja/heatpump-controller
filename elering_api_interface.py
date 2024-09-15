@@ -1,3 +1,4 @@
+from os import path
 import configparser
 import requests
 import json
@@ -5,8 +6,10 @@ from datetime import datetime
 from datetime import timezone
 from datetime import timedelta
 
+
+dir_path = path.dirname(path.abspath(__file__))
 conf = configparser.ConfigParser()
-conf.read('config.ini')
+conf.read(path.join(dir_path, 'config.ini'))
 
 
 def fetch_nps_price_data(fetch_today_also=False):
@@ -32,7 +35,7 @@ def fetch_nps_price_data(fetch_today_also=False):
             data_list = raw_data['data'][conf['NordPool']['pricearea']]
             clean_data = {'data': data_list}
             # Define the local file name to save the JSON data
-            filename = './nps-data/nps_price_data_'+request_date_str+'.json'
+            filename = path.join(dir_path, 'nps-data', 'nps_price_data_'+request_date_str+'.json')
 
             # Save the content to a local file
             with open(filename, 'w') as file:

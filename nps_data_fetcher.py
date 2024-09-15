@@ -1,18 +1,19 @@
-import os.path
+from os import path
 import configparser
 import elering_api_interface
 from datetime import datetime, timezone
 
 
+dir_path = path.dirname(path.abspath(__file__))
 conf = configparser.ConfigParser()
-conf.read('config.ini')
+conf.read(path.join(dir_path, 'config.ini'))
 
 
 def __fetch_data():
     # Check if today's data already exists or not
     date_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
-    filename = './nps-data/nps_price_data_'+date_str+'.json'
-    fetch_today_also = not os.path.isfile(filename)
+    filename = path.join(dir_path, 'nps-data', 'nps_price_data_' + date_str + '.json')
+    fetch_today_also = not path.isfile(filename)
 
     # Choose data source according to configuration file
     data_api = conf['NordPool']['datasource']

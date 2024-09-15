@@ -1,10 +1,14 @@
+from os import path
 import aiohttp
 import asyncio
 import pymelcloud
 import configparser
 
+
+dir_path = path.dirname(path.abspath(__file__))
 conf = configparser.ConfigParser()
-conf.read('config.ini')
+conf.read(path.join(dir_path, 'config.ini'))
+
 
 async def __update_melcloud(state_request):
 

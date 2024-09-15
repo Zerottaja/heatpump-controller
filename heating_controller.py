@@ -1,10 +1,12 @@
+from os import path
 import json
 import configparser
 from datetime import datetime, timezone
 
 
+dir_path = path.dirname(path.abspath(__file__))
 conf = configparser.ConfigParser()
-conf.read('config.ini')
+conf.read(path.join(dir_path, 'config.ini'))
 
 
 def __sort_and_short(dict_list):
@@ -25,7 +27,7 @@ def calculate_control():
     date_str = ct.strftime('%Y-%m-%d')
     hour_timestamp = int(datetime(ct.year, ct.month, ct.day, ct.hour, \
                          0, 0, 0, timezone.utc).timestamp())
-    filename = './nps-data/nps_price_data_' + date_str + '.json'
+    filename = path.join(dir_path, 'nps-data', 'nps_price_data_' + date_str + '.json')
     try:
         cheapest_hours = []
         with open(filename, mode='r') as file:
