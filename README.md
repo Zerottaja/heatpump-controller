@@ -2,8 +2,14 @@
 Home automation project meant to control Mitsubishi Electric heatpump according to Nordpool Spot electricity pricing.
 
 ## Setup
-- I highly recommend installing a python virtual environment for running this project. After installation, please modify the shebangs in cronjob shell scripts `heatpump_control_cronjob.sh` and `nps_data_cronjob.sh` to match your virtual environments path.
-- Add cronjob scripts to crontab (or your other favourite task scheduler) as detailed in each individual cronjob
+- I highly recommend installing a python virtual environment for running this project.
+- Install library requirements with `/path/to/my/venv/bin/pip3 install -r requirements.txt`
+- Add tasks to crontab (or your other favourite task scheduler). Main script should run hourly just after hour change and NPS (Nord Pool Spot) data fetcher should run just once per day after the data has been published. Configure the paths according to your liking:
+```
+1 * * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/main.py >> /path/to/my/logs/cron.log 2>&1
+0 18 * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/nps_data_fetcher.py >> /path/to/my/logs/cron.log 2>&1
+
+```
 - Install submodule `pymelcloud` according to it's instructions
 - Configure `config.ini.example` to your liking and save it as `config.ini`
 
