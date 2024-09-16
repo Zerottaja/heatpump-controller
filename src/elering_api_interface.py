@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 from datetime import timezone
 from datetime import timedelta
+import light_logging
 import requests
 
 
@@ -44,9 +45,9 @@ def fetch_nps_price_data(fetch_today_also=False):
             with open(filename, 'w', encoding="utf-8") as file:
                 file.write(json.dumps(clean_data))
 
-            print(f"NPS data successfully saved as {filename}")
+            light_logging.log(f"NPS data successfully saved as {filename}")
         else:
-            print(f"Failed to fetch JSON data. Status code: {response.status_code}")
+            light_logging.log(f"Failed to fetch JSON data. Status code: {response.status_code}")
 
 
 if __name__ == '__main__':

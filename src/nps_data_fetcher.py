@@ -4,6 +4,7 @@ from os import path
 import configparser
 from datetime import datetime, timezone
 import elering_api_interface
+import light_logging
 
 
 _dir_path = path.dirname(path.abspath(__file__))
@@ -25,7 +26,7 @@ def __fetch_data():
         case 'elering':
             elering_api_interface.fetch_nps_price_data(fetch_today_also)
         case _:
-            print('Configured data source not available. Could not fetch NPS data.')
+            light_logging.log('Configured data source not available. Could not fetch NPS data.')
 
 
 if __name__ == '__main__':

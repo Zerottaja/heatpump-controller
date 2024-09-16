@@ -4,6 +4,7 @@ from os import path
 import json
 import configparser
 from datetime import datetime, timezone
+import light_logging
 
 
 _dir_path = path.dirname(path.abspath(__file__))
@@ -40,7 +41,7 @@ def calculate_control():
             cheapest_hours = __sort_and_short(raw_data['data'])
         return hour_timestamp in (__get_hour_list(cheapest_hours))
     except ValueError as err:
-        print(f'Error while calculating heating control: {err}')
+        light_logging.log(f'Error while calculating heating control: {err}')
         return False
 
 

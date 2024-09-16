@@ -4,7 +4,7 @@ import configparser
 import asyncio
 import aiohttp
 import pymelcloud
-
+import light_logging
 
 _dir_path = path.dirname(path.abspath(__file__))
 _conf = configparser.ConfigParser()
@@ -27,7 +27,7 @@ async def __update_melcloud(state_request):
         # perform logic on the device
         await device.update()
 
-        print(f'MELCloud login ok, setting {device.name}-heatpump state to {state_request}.')
+        light_logging.log(f'MELCloud login ok, setting {device.name}-heatpump state to {state_request}.')
         await device.set({'power': state_request, \
                           'target_temperature': int(_conf['Heatpump']['targettemperature']), \
                           'operation_mode': _conf['Heatpump']['operationmode'], \

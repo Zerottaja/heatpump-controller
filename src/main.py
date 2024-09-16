@@ -6,6 +6,7 @@ import spot_hinta_api_interface
 import melcloud_interface
 import heating_controller
 
+
 _dir_path = path.dirname(path.abspath(__file__))
 _conf = configparser.ConfigParser()
 _conf.read(path.join(_dir_path, '..', 'config.ini'))
