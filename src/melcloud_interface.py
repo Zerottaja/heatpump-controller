@@ -27,7 +27,8 @@ async def __update_melcloud(state_request):
         # perform logic on the device
         await device.update()
 
-        light_logging.log(f'MELCloud login ok, set {device.name}-heatpump state to {state_request}.')
+        light_logging \
+            .log(f'MELCloud login ok, setting {device.name}-heatpump state to {state_request}.')
         await device.set({'power': state_request, \
                           'target_temperature': int(_conf['Heatpump']['targettemperature']), \
                           'operation_mode': _conf['Heatpump']['operationmode'], \
