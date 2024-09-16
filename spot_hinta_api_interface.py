@@ -1,9 +1,8 @@
 '''This module calls an external Spot-hinta.fi API for heating control.
 Using this control source is independant from NPS data fetching.'''
 from os import path
-import requests
 import configparser
-import melcloud_interface
+import requests
 
 
 _dir_path = path.dirname(path.abspath(__file__))
@@ -13,8 +12,7 @@ _conf.read(path.join(_dir_path, 'config.ini'))
 
 def fetch_control():
     '''Call Spot-hinta.fi API and return heating control boolean.'''
-    url = 'https://api.spot-hinta.fi/QuickCode/{}' \
-          .format(_conf['SpotHinta']['quickcode'])
+    url = f"https://api.spot-hinta.fi/QuickCode/{_conf['SpotHinta']['quickcode']}"
 
     try:
         # Fetch control from the URL
@@ -22,10 +20,10 @@ def fetch_control():
 
         # Check if the request was successful
         state = response.status_code == 200
-        print('Spot-hinta API recommends setting heating state to {}'.format(state))
+        print(f'Spot-hinta API recommends setting heating state to {state}.')
     except Exception as err:
         print(err)
-        print('Fetching Spot-hinta API control failed. Deactivating heatpump')
+        print('Fetching Spot-hinta API control failed. Recommend setting heating state to False.')
         state = False
 
     return state

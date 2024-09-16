@@ -20,7 +20,6 @@ def main():
             heatpump_request = heating_controller.calculate_control()
     melcloud_interface.set_heatpump_state(heatpump_request)
 
-    return
 
 if __name__ == "__main__":
     sys.exit(main())

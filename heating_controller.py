@@ -35,15 +35,13 @@ def calculate_control():
     filename = path.join(_dir_path, 'nps-data', 'nps_price_data_' + date_str + '.json')
     try:
         cheapest_hours = []
-        with open(filename, mode='r') as file:
+        with open(filename, mode='r', encoding="utf-8") as file:
             raw_data = json.load(file)
             cheapest_hours = __sort_and_short(raw_data['data'])
-        if hour_timestamp in (__get_hour_list(cheapest_hours)):
-            return True
-        else:
-            return False
+        return hour_timestamp in (__get_hour_list(cheapest_hours))
     except ValueError as err:
-        print('Error while calculating heating control: {}'.format(err))
+        print(f'Error while calculating heating control: {err}')
+        return False
 
 
 if __name__ == '__main__':

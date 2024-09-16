@@ -1,9 +1,9 @@
 '''This module calls Mitsubishi MELCloud via the pymelcloud module to set heatpump state.'''
 from os import path
-import aiohttp
-import asyncio
-import pymelcloud
 import configparser
+import asyncio
+import aiohttp
+import pymelcloud
 
 
 _dir_path = path.dirname(path.abspath(__file__))
@@ -27,14 +27,13 @@ async def __update_melcloud(state_request):
         # perform logic on the device
         await device.update()
 
-        print("MELCloud login ok, setting {}-heatpump state to {}." \
-              .format(device.name, state_request))
-        await device.set({"power": state_request, \
-                          "target_temperature": int(_conf['Heatpump']['targettemperature']), \
-                          "operation_mode": _conf['Heatpump']['operationmode'], \
-                          "fan_speed": _conf['Heatpump']['fanspeed'], \
-                          "vane_horizontal": _conf['Heatpump']['vanehorizontal'], \
-                          "vane_vertical": _conf['Heatpump']['vanevertical']})
+        print(f'MELCloud login ok, setting {device.name}-heatpump state to {state_request}.')
+        await device.set({'power': state_request, \
+                          'target_temperature': int(_conf['Heatpump']['targettemperature']), \
+                          'operation_mode': _conf['Heatpump']['operationmode'], \
+                          'fan_speed': _conf['Heatpump']['fanspeed'], \
+                          'vane_horizontal': _conf['Heatpump']['vanehorizontal'], \
+                          'vane_vertical': _conf['Heatpump']['vanevertical']})
         await session.close()
 
 
