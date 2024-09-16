@@ -1,3 +1,4 @@
+'''This module calls Estonian national grid Elering's LIVE API and fetches Nord Pool Spot electricity prices.'''
 from os import path
 import configparser
 import requests
@@ -7,12 +8,13 @@ from datetime import timezone
 from datetime import timedelta
 
 
-dir_path = path.dirname(path.abspath(__file__))
-conf = configparser.ConfigParser()
-conf.read(path.join(dir_path, 'config.ini'))
+_dir_path = path.dirname(path.abspath(__file__))
+_conf = configparser.ConfigParser()
+_conf.read(path.join(_dir_path, 'config.ini'))
 
 
 def fetch_nps_price_data(fetch_today_also=False):
+    '''Make API call, save Nord Pool Spot data to a JSON file.'''
     if(fetch_today_also):
         no_of_requests = 2
     else:
@@ -32,10 +34,10 @@ def fetch_nps_price_data(fetch_today_also=False):
         # Check if the request was successful
         if response.status_code == 200:
             raw_data = json.loads(response.content)
-            data_list = raw_data['data'][conf['NordPool']['pricearea']]
+            data_list = raw_data['data'][_conf['NordPool']['pricearea']]
             clean_data = {'data': data_list}
             # Define the local file name to save the JSON data
-            filename = path.join(dir_path, 'nps-data', 'nps_price_data_'+request_date_str+'.json')
+            filename = path.join(_dir_path, 'nps-data', 'nps_price_data_'+request_date_str+'.json')
 
             # Save the content to a local file
             with open(filename, 'w') as file:

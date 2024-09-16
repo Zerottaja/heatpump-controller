@@ -31,6 +31,11 @@ VaneHorizontal = swing
 # please refer to pymelcloud library for position info
 VaneVertical = swing
 
+[SpotHinta]
+# Select Quick Code according to Spot-hinta API documentation at
+# https://spot-hinta.fi/pikakoodit/
+QuickCode=125
+
 [Credentials]
 # Mitsubishi Cloud credentials
 MELCloudEmail = user.name@email.com
