@@ -37,7 +37,8 @@ def fetch_nps_price_data(fetch_today_also=False):
             data_list = raw_data['data'][_conf['NordPool']['pricearea']]
             clean_data = {'data': data_list}
             # Define the local file name to save the JSON data
-            filename = path.join(_dir_path, '..', 'nps-data', 'nps_price_data_'+request_date_str+'.json')
+            filename = path.join(_dir_path, '..', 'nps-data', \
+                       'nps_price_data_'+request_date_str+'.json')
 
             # Save the content to a local file
             with open(filename, 'w', encoding="utf-8") as file:
