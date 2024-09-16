@@ -21,7 +21,7 @@ def fetch_control():
         # Check if the request was successful
         state = response.status_code == 200
         print(f'Spot-hinta API recommends setting heating state to {state}.')
-    except Exception as err:
+    except ConnectionError as err:
         print(err)
         print('Fetching Spot-hinta API control failed. Recommend setting heating state to False.')
         state = False
