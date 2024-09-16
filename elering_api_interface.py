@@ -29,7 +29,7 @@ def fetch_nps_price_data(fetch_today_also=False):
         url = f'https://dashboard.elering.ee/api/nps/price?start={start_param}&end={end_param}'
 
         # Fetch the JSON data from the URL
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
 
         # Check if the request was successful
         if response.status_code == 200:
