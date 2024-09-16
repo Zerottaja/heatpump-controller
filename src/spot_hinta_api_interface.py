@@ -24,7 +24,8 @@ def fetch_control():
         light_logging.log(f'Spot-hinta API recommends setting heating state to {state}.')
     except ConnectionError as err:
         light_logging.log(err)
-        light_logging.log('Fetching Spot-hinta API control failed. Recommend setting heating state to False.')
+        light_logging.log('Fetching Spot-hinta API control failed. '
+                          + 'Recommend setting heating state to False.')
         state = False
 
     return state

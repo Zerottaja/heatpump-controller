@@ -1,6 +1,6 @@
 '''This module simply wraps current time to console outputs that can
 then be piped anywhere the user desires.'''
-from datetime import datetime, timezone
+from datetime import datetime
 
 
 def log(message):

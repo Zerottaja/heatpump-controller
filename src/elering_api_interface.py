@@ -6,8 +6,8 @@ import json
 from datetime import datetime
 from datetime import timezone
 from datetime import timedelta
-import light_logging
 import requests
+import light_logging
 
 
 _dir_path = path.dirname(path.abspath(__file__))
