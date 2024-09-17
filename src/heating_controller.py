@@ -19,6 +19,27 @@ def __sort_and_short(dict_list):
     return dict_list
 
 
+def __hour_span_price(dict_list, start_hour):
+    '''Calculate price sum of consecutive hours and arbitrary start point, return price'''
+    price = 0
+    for hour in range(start_hour, start_hour + int(_conf['Heating']['heatinghours'])):
+        price += dict_list[hour]['price']
+    return price
+
+
+def __short_consecutive(dict_list):
+    '''Loop over daily electricity pricing,
+    return cheapest consecutive hours and their pricing'''
+    cheapest_start = {'hour': 0, 'span_price': __hour_span_price(dict_list, 0)}
+    loops = 24 - int(_conf['Heating']['heatinghours'])
+    for start_hour in range(1, loops+1):
+        span_price = __hour_span_price(dict_list, start_hour)
+        if span_price < cheapest_start['span_price']:
+            cheapest_start = {'hour': start_hour, 'span_price': span_price}
+    return dict_list[cheapest_start['hour']:cheapest_start['hour'] \
+           + int(_conf['Heating']['heatinghours'])]
+
+
 def __get_hour_list(dict_list):
     '''Extract hours from dictionary list, return them as a list.'''
     hour_list = []
@@ -38,7 +59,10 @@ def calculate_control():
         cheapest_hours = []
         with open(filename, mode='r', encoding="utf-8") as file:
             raw_data = json.load(file)
-            cheapest_hours = __sort_and_short(raw_data['data'])
+            if _conf.getboolean('Heating', 'consecutivehours'):
+                cheapest_hours = __short_consecutive(raw_data['data'])
+            else:
+                cheapest_hours = __sort_and_short(raw_data['data'])
         return hour_timestamp in (__get_hour_list(cheapest_hours))
     except ValueError as err:
         light_logging.log(f'Error while calculating heating control: {err}')
