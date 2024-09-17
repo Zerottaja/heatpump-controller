@@ -1,4 +1,6 @@
 # heatpump-controller
+[![Pylint](https://github.com/Zerottaja/heatpump-controller/actions/workflows/pylint.yml/badge.svg?branch=master)](https://github.com/Zerottaja/heatpump-controller/actions/workflows/pylint.yml)
+
 Home automation project meant to control Mitsubishi Electric heatpump according to Nordpool Spot electricity pricing.
 
 ## Setup
