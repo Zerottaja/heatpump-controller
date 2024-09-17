@@ -14,6 +14,7 @@ ConsecutiveHours=False
 DataSource=elering
 # Nordpool price area
 PriceArea=fi
+TimeZone=Europe/Helsinki
 
 [Heatpump]
 # Target temperature in degrees celsius
