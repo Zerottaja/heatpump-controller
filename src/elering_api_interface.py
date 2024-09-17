@@ -18,7 +18,8 @@ def fetch_nps_price_data(fetch_today_also):
     '''Make API call, save Nord Pool Spot data to a JSON file.'''
     for i in range(1+fetch_today_also.real):
         # define the request URL, Elering API requires UTC time
-        request_date_local = datetime.now(ZoneInfo(_conf['NordPool']['timezone'])) + timedelta(days=1-i)
+        request_date_local = datetime.now(ZoneInfo(_conf['NordPool']['timezone'])) 
+                             + timedelta(days=1-i)
         # start parameter
         time_local = datetime(year=request_date_local.year, \
                               month=request_date_local.month, \
