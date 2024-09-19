@@ -8,6 +8,7 @@ Home automation project meant to control Mitsubishi Electric heatpump according 
 ```
 1 * * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/main.py >> /path/to/my/logs/cron.log 2>&1
 0 18 * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/nps_data_fetcher.py >> /path/to/my/logs/cron.log 2>&1
+0 12 * * 1 /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/nps_data_cleaner.py >> /path/to/my/logs/cron.log 2>&1
 
 ```
 - Install submodule `pymelcloud` according to it's instructions
