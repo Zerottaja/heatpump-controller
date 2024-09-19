@@ -11,7 +11,7 @@ _conf = configparser.ConfigParser()
 _conf.read(os.path.join(_dir_path, '..', 'config.ini'))
 
 
-def delete_files_except(directory, files_to_keep):
+def delete_files_except(directory, keep_files):
     '''Iterate through every file in given directory, delete it if it's old.'''
     if not os.path.exists(directory):
         ll.log(f"The directory '{directory}' does not exist.")
@@ -22,11 +22,11 @@ def delete_files_except(directory, files_to_keep):
 
         # skip directories, only delete files
         if os.path.isfile(file_path):
-            if file_path not in files_to_keep:
+            if file_path not in keep_files:
                 try:
                     os.remove(file_path)
                     print(f"Deleted file: {file_path}")
-                except Exception as e:
+                except (FileNotFoundError, PermissionError) as e:
                     ll.log(f"Error deleting file {file_path}: {e}")
             else:
                 ll.log(f"Skipped file: {file_path}")
