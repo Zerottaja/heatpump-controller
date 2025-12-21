@@ -23,7 +23,7 @@ def __sort_and_short(dict_list, quarter_interval):
         for i in range(0, 24):
             dict_list[i]['price'] = (dict_list[i]['price'] + dict_list[i+1]['price'] + \
                                      dict_list[i+2]['price'] + dict_list[i+3]['price']) / 4
-            for j in range(0,3):
+            for _ in range(0,3):
                 dict_list.pop(i+1)
     dict_list.sort(key = lambda k: k['price'])
     dict_list = dict_list[0:item_count]
