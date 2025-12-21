@@ -30,7 +30,7 @@ def fetch_nps_price_data(fetch_today_also):
         # end parameter
         time_local = datetime(year=request_date_local.year, \
                               month=request_date_local.month, \
-                              day=request_date_local.day, hour=23, minute=30)
+                              day=request_date_local.day, hour=23, minute=59)
         time_utc = time_local - request_date_local.utcoffset()
         end_param = time_utc.strftime('%Y-%m-%dT%H:%M:%S.000Z')
         end_param = end_param.replace(':', '%3A')
