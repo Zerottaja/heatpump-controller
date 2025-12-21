@@ -4,6 +4,8 @@
 [Heating]
 # Heating control source options are spot-hinta and internal
 ControlSource=internal
+# Quarter hour interval options are 1 (True), 0 (False)
+QuarterHourInterval=True
 # By default, how many hours a day should heating be active?
 HeatingHours=12
 # Should these heating hours be consecutive?
