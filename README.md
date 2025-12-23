@@ -9,7 +9,7 @@ Supports quarter hour control interval or hourly interval.
 - Install library requirements with `/path/to/my/venv/bin/pip3 install -r requirements.txt`
 - Add tasks to crontab (or your other favourite task scheduler). Main script should run hourly just after hour change and NPS (Nord Pool Spot) data fetcher should run just once per day after the data has been published. Configure the paths according to your liking:
 ```
-0/15 * * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/main.py >> /path/to/my/logs/cron.log 2>&1
+0,15,30,45 * * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/main.py >> /path/to/my/logs/cron.log 2>&1
 0 18 * * * /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/nps_data_fetcher.py >> /path/to/my/logs/cron.log 2>&1
 0 12 * * 1 /path/to/my/venv/bin/python3 /path/to/my/heatpump-controller/src/nps_data_cleaner.py >> /path/to/my/logs/cron.log 2>&1
 
