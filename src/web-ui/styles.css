@@ -1,0 +1,75 @@
+body {
+    font-family: system-ui, sans-serif;
+    margin: 2rem;
+    background: #f7f7f7;
+    color: #222;
+}
+
+main {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+}
+
+h1 {
+    font-size: 1.4rem;
+}
+
+.note {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+fieldset {
+    margin: 0 0 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+}
+
+legend {
+    padding: 0 0.4rem;
+    font-weight: 600;
+}
+
+label {
+    display: block;
+    margin: 0.6rem 0 0.2rem;
+}
+
+input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.4rem;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0.6rem 0;
+}
+
+.checkbox label {
+    margin: 0;
+}
+
+button {
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+}
+
+#status {
+    min-height: 1.2rem;
+    font-weight: 600;
+}
+
+#status.ok {
+    color: #176b2d;
+}
+
+#status.error {
+    color: #a32020;
+}
