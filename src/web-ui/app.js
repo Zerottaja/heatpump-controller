@@ -1,23 +1,23 @@
 const SCHEMA = {
     Heating: [
-        { key: 'ControlSource', type: 'list', options: ['internal', 'spot-hinta'] },
+        { key: 'ControlSource', type: 'select', options: ['internal', 'spot-hinta'] },
         { key: 'QuarterHourInterval', type: 'checkbox' },
         { key: 'HeatingHours', type: 'text' },
         { key: 'ConsecutiveHours', type: 'checkbox' },
     ],
     NordPool: [
-        { key: 'DataSource', type: 'list', options: ['elering'] },
-        { key: 'PriceArea', type: 'list', options: ['fi', 'ee'] },
-        { key: 'TimeZone', type: 'list', options: ['Europe/Helsinki', 'UTC'] },
+        { key: 'DataSource', type: 'select', options: ['elering'] },
+        { key: 'PriceArea', type: 'select', options: ['fi', 'ee'] },
+        { key: 'TimeZone', type: 'select', options: ['Europe/Helsinki', 'UTC'] },
     ],
     Heatpump: [
         { key: 'TargetTemperature', type: 'text' },
-        { key: 'OperationMode', type: 'list',
+        { key: 'OperationMode', type: 'select',
           options: ['heat', 'dry', 'cool', 'fan_only', 'heat_cool'] },
-        { key: 'FanSpeed', type: 'list', options: ['auto', '1', '2', '3', '4', '5'] },
-        { key: 'VaneHorizontal', type: 'list',
+        { key: 'FanSpeed', type: 'select', options: ['auto', '1', '2', '3', '4', '5'] },
+        { key: 'VaneHorizontal', type: 'select',
           options: ['auto', '1_left', '2', '3', '4', '5_right', 'split', 'swing'] },
-        { key: 'VaneVertical', type: 'list',
+        { key: 'VaneVertical', type: 'select',
           options: ['auto', '1_up', '2', '3', '4', '5_down', 'swing'] },
     ],
     SpotHinta: [
@@ -31,48 +31,84 @@ function showStatus(message, kind) {
     status.className = kind || '';
 }
 
-function createInput(section, field, value) {
+function createCheckbox(section, field, value) {
     const id = `${section}-${field.key}`;
     const wrapper = document.createElement('div');
     const input = document.createElement('input');
+    const label = document.createElement('label');
 
+    input.type = 'checkbox';
     input.id = id;
     input.dataset.section = section;
     input.dataset.key = field.key;
-
-    if (field.type === 'checkbox') {
-        input.type = 'checkbox';
-        input.dataset.fieldType = 'checkbox';
-        input.checked = String(value).trim().toLowerCase() === 'true';
-        const label = document.createElement('label');
-        label.htmlFor = id;
-        label.textContent = field.key;
-        wrapper.className = 'checkbox';
-        wrapper.append(input, label);
-        return wrapper;
-    }
-
-    input.type = 'text';
-    input.dataset.fieldType = 'text';
-    input.value = value === undefined || value === null ? '' : value;
-    const label = document.createElement('label');
+    input.dataset.fieldType = 'checkbox';
+    input.checked = String(value).trim().toLowerCase() === 'true';
     label.htmlFor = id;
     label.textContent = field.key;
-    wrapper.append(label, input);
 
-    if (field.options) {
-        const list = document.createElement('datalist');
-        list.id = `${id}-options`;
-        field.options.forEach((option) => {
-            const item = document.createElement('option');
-            item.value = option;
-            list.appendChild(item);
-        });
-        input.setAttribute('list', list.id);
-        wrapper.appendChild(list);
+    wrapper.className = 'checkbox';
+    wrapper.append(input, label);
+    return wrapper;
+}
+
+function createSelect(section, field, value) {
+    const id = `${section}-${field.key}`;
+    const wrapper = document.createElement('div');
+    const label = document.createElement('label');
+    const select = document.createElement('select');
+    const current = value === undefined || value === null ? '' : String(value);
+    const options = [...field.options];
+
+    if (current !== '' && !options.includes(current)) {
+        options.unshift(current);
     }
 
+    label.htmlFor = id;
+    label.textContent = field.key;
+    select.id = id;
+    select.dataset.section = section;
+    select.dataset.key = field.key;
+    select.dataset.fieldType = 'select';
+
+    options.forEach((option) => {
+        const item = document.createElement('option');
+        item.value = option;
+        item.textContent = option;
+        item.selected = option === current;
+        select.appendChild(item);
+    });
+
+    wrapper.append(label, select);
     return wrapper;
+}
+
+function createTextInput(section, field, value) {
+    const id = `${section}-${field.key}`;
+    const wrapper = document.createElement('div');
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+
+    label.htmlFor = id;
+    label.textContent = field.key;
+    input.type = 'text';
+    input.id = id;
+    input.dataset.section = section;
+    input.dataset.key = field.key;
+    input.dataset.fieldType = 'text';
+    input.value = value === undefined || value === null ? '' : value;
+
+    wrapper.append(label, input);
+    return wrapper;
+}
+
+function createInput(section, field, value) {
+    if (field.type === 'checkbox') {
+        return createCheckbox(section, field, value);
+    }
+    if (field.type === 'select') {
+        return createSelect(section, field, value);
+    }
+    return createTextInput(section, field, value);
 }
 
 function renderForm(config) {
@@ -100,7 +136,7 @@ function renderForm(config) {
 
 function buildPayload() {
     const payload = {};
-    document.querySelectorAll('input[data-section]').forEach((input) => {
+    document.querySelectorAll('[data-section]').forEach((input) => {
         const section = input.dataset.section;
         if (!payload[section]) {
             payload[section] = {};

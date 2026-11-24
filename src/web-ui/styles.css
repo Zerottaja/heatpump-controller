@@ -1,36 +1,39 @@
 body {
     font-family: system-ui, sans-serif;
     margin: 2rem;
-    background: #f7f7f7;
-    color: #222;
+    background: #c1c1c1;
+    color: #2c4251;
 }
 
 main {
     max-width: 40rem;
     margin: 0 auto;
     padding: 1.5rem;
-    background: #fff;
+    background: #ffffff;
+    border: 1px solid #c1c1c1;
     border-radius: 8px;
-    box-shadow: 0 1px 4px rgb(0 0 0 / 10%);
+    box-shadow: 0 2px 6px rgb(44 66 81 / 15%);
 }
 
 h1 {
+    color: #2c4251;
     font-size: 1.4rem;
 }
 
 .note {
-    color: #555;
+    color: #2c4251;
     font-size: 0.9rem;
 }
 
 fieldset {
     margin: 0 0 1rem;
     padding: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #c1c1c1;
 }
 
 legend {
     padding: 0 0.4rem;
+    color: #2c4251;
     font-weight: 600;
 }
 
@@ -39,10 +42,20 @@ label {
     margin: 0.6rem 0 0.2rem;
 }
 
-input[type="text"] {
+input[type="text"],
+select {
     box-sizing: border-box;
     width: 100%;
     padding: 0.4rem;
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    color: #2c4251;
+}
+
+input[type="text"]:focus,
+select:focus {
+    outline: 2px solid #b6c649;
+    outline-offset: 1px;
 }
 
 .checkbox {
@@ -52,24 +65,40 @@ input[type="text"] {
     margin: 0.6rem 0;
 }
 
+.checkbox input {
+    accent-color: #2c4251;
+}
+
 .checkbox label {
     margin: 0;
 }
 
 button {
     padding: 0.6rem 1.2rem;
+    border: 0;
+    border-radius: 4px;
+    background: #2c4251;
+    color: #ffffff;
     cursor: pointer;
+}
+
+button:hover {
+    background: #b6c649;
+    color: #2c4251;
 }
 
 #status {
     min-height: 1.2rem;
+    padding-left: 0.5rem;
     font-weight: 600;
 }
 
 #status.ok {
-    color: #176b2d;
+    border-left: 4px solid #b6c649;
+    color: #2c4251;
 }
 
 #status.error {
-    color: #a32020;
+    border-left: 4px solid #d16666;
+    color: #d16666;
 }

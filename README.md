@@ -36,8 +36,8 @@ setup. The intended follow-up is documented in `WEB_UI_PLAN.md`.
 
 `config.ini` must already exist (copy `config.ini.example` during setup). Credentials are never
 shown in the UI or included in its API responses, and they are preserved when settings are saved.
-Cron jobs read `config.ini` when each process starts, so saved changes apply on the next scheduled
-run.
+Fields with predefined options are shown as dropdowns; other fields remain free text. Cron jobs
+read `config.ini` when each process starts, so saved changes apply on the next scheduled run.
 
 Run the tests with:
 
