@@ -10,6 +10,8 @@ QuarterHourInterval=True
 HeatingHours=12
 # Should these heating hours be consecutive?
 ConsecutiveHours=False
+# When True, main.py exits without changing the heat pump state.
+ManualOverride=False
 
 [NordPool]
 # Nord Pool Spot price data source options are elering

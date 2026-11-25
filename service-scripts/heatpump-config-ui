@@ -1,0 +1,86 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          heatpump-config-ui
+# Required-Start:    $remote_fs $network
+# Required-Stop:     $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Heatpump controller config UI
+# Description:       Serves the config.ini editor for the heatpump controller.
+### END INIT INFO
+
+# Settings can be overridden in /etc/default/heatpump-config-ui.
+DEFAULTS=/etc/default/heatpump-config-ui
+if [ -f "$DEFAULTS" ]; then
+    # shellcheck disable=SC1090
+    . "$DEFAULTS"
+fi
+
+NAME=heatpump-config-ui
+APP_DIR=${APP_DIR:-/path/to/my/heatpump-controller}
+PYTHON=${PYTHON:-/usr/bin/python3}
+RUNAS=${RUNAS:-pi}
+HOST=${HOST:-127.0.0.1}
+PORT=${PORT:-8000}
+PIDFILE=${PIDFILE:-/run/$NAME.pid}
+LOGFILE=${LOGFILE:-/var/log/$NAME.log}
+SCRIPT="$APP_DIR/src/config_ui.py"
+
+NO_CLOSE=
+if start-stop-daemon --help 2>&1 | grep -q -- '--no-close'; then
+    NO_CLOSE=--no-close
+fi
+
+is_running() {
+    [ -f "$PIDFILE" ] || return 1
+    pid=$(cat "$PIDFILE" 2>/dev/null) || return 1
+    [ -n "$pid" ] || return 1
+    kill -0 "$pid" 2>/dev/null
+}
+
+do_start() {
+    if is_running; then
+        echo "$NAME is already running (pid $(cat "$PIDFILE"))."
+        return 0
+    fi
+
+    echo "Starting $NAME..."
+    start-stop-daemon --start --quiet --background $NO_CLOSE --make-pidfile \
+        --pidfile "$PIDFILE" --chuid "$RUNAS" --chdir "$APP_DIR" \
+        --startas "$PYTHON" -- "$SCRIPT" --host "$HOST" --port "$PORT" \
+        >> "$LOGFILE" 2>&1
+}
+
+do_stop() {
+    echo "Stopping $NAME..."
+    start-stop-daemon --stop --quiet --oknodo --retry=TERM/30/KILL/5 \
+        --pidfile "$PIDFILE"
+    rm -f "$PIDFILE"
+}
+
+case "$1" in
+    start)
+        do_start
+        ;;
+    stop)
+        do_stop
+        ;;
+    restart|force-reload)
+        do_stop
+        do_start
+        ;;
+    status)
+        if is_running; then
+            echo "$NAME is running (pid $(cat "$PIDFILE"))."
+            exit 0
+        fi
+        echo "$NAME is not running."
+        exit 3
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|force-reload|status}" >&2
+        exit 2
+        ;;
+esac
+
+exit 0
