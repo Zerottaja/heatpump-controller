@@ -17,6 +17,7 @@ ControlSource = internal
 QuarterHourInterval = True
 HeatingHours = 12
 ConsecutiveHours = False
+ManualOverride = False
 
 [NordPool]
 DataSource = elering
@@ -52,7 +53,7 @@ class ConfigUiTests(unittest.TestCase):
     def test_credentials_survive_payload(self):
         '''Injected credentials and unknown sections are ignored.'''
         payload = {
-            'Heating': {'ControlSource': 'spot-hinta'},
+            'Heating': {'ControlSource': 'spot-hinta', 'ManualOverride': 'True'},
             'Credentials': {'MELCloudEmail': 'attacker@example.com'},
             'Evil': {'Power': 'on'},
         }
@@ -63,6 +64,7 @@ class ConfigUiTests(unittest.TestCase):
         self.assertEqual(config.get('Credentials', 'melcloudpassword'), 'secret')
         self.assertFalse(config.has_section('Evil'))
         self.assertEqual(config.get('Heating', 'controlsource'), 'spot-hinta')
+        self.assertEqual(config.get('Heating', 'manualoverride'), 'True')
 
     def test_unknown_keys_are_ignored(self):
         '''Keys outside the allowlist do not appear in the saved file.'''
@@ -81,6 +83,7 @@ class ConfigUiTests(unittest.TestCase):
 
         self.assertNotIn('Credentials', public)
         self.assertEqual(public['Heating']['ControlSource'], 'internal')
+        self.assertEqual(public['Heating']['ManualOverride'], 'False')
         self.assertEqual(public['SpotHinta']['QuickCode'], '125')
 
     def test_missing_config_raises_clear_error(self):

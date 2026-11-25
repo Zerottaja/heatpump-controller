@@ -23,6 +23,7 @@ ALLOWED_SECTIONS = {
         'QuarterHourInterval',
         'HeatingHours',
         'ConsecutiveHours',
+        'ManualOverride',
     ],
     'NordPool': [
         'DataSource',

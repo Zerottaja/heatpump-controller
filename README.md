@@ -39,6 +39,10 @@ shown in the UI or included in its API responses, and they are preserved when se
 Fields with predefined options are shown as dropdowns; other fields remain free text. Cron jobs
 read `config.ini` when each process starts, so saved changes apply on the next scheduled run.
 
+The **Manual override** switch sets `[Heating] ManualOverride`. When it is true, `main.py` logs the
+reason and exits before fetching prices, choosing heating hours, or contacting MELCloud, leaving the
+heat pump state unchanged.
+
 Run the tests with:
 
 ```bash

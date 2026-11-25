@@ -1,5 +1,6 @@
 const SCHEMA = {
     Heating: [
+        { key: 'ManualOverride', type: 'checkbox', label: 'Manual override' },
         { key: 'ControlSource', type: 'select', options: ['internal', 'spot-hinta'] },
         { key: 'QuarterHourInterval', type: 'checkbox' },
         { key: 'HeatingHours', type: 'text' },
@@ -44,7 +45,7 @@ function createCheckbox(section, field, value) {
     input.dataset.fieldType = 'checkbox';
     input.checked = String(value).trim().toLowerCase() === 'true';
     label.htmlFor = id;
-    label.textContent = field.key;
+    label.textContent = field.label || field.key;
 
     wrapper.className = 'checkbox';
     wrapper.append(input, label);
@@ -64,7 +65,7 @@ function createSelect(section, field, value) {
     }
 
     label.htmlFor = id;
-    label.textContent = field.key;
+    label.textContent = field.label || field.key;
     select.id = id;
     select.dataset.section = section;
     select.dataset.key = field.key;
@@ -89,7 +90,7 @@ function createTextInput(section, field, value) {
     const input = document.createElement('input');
 
     label.htmlFor = id;
-    label.textContent = field.key;
+    label.textContent = field.label || field.key;
     input.type = 'text';
     input.id = id;
     input.dataset.section = section;
